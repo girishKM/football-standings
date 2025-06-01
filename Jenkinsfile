@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven3'
+    }
+
     environment {
         APIFOOTBALL_API_KEY = credentials('APIFOOTBALL_API_KEY')
         IMAGE_NAME = "footballapi:${env.BUILD_NUMBER}"
@@ -15,7 +19,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'docker run --rm -v $PWD:/app -w /app maven:3.9.6-eclipse-temurin-17 mvn clean package -DskipTests'
             }
         }
         stage('Test') {
