@@ -34,7 +34,7 @@ pipeline {
         stage('Docker Deploy') {
             steps {
                 bat "docker rm -f footballapi || exit 0"
-                bat "docker run -d --name footballapi -e APIFOOTBALL_API_KEY=${env.APIFOOTBALL_API_KEY} -p 8080:8080 footballapi_${env.BUILD_NUMBER}"
+                bat "docker run -d --name footballapi -e APIFOOTBALL_API_KEY=${env.APIFOOTBALL_API_KEY} -p 8081:8080 footballapi_${env.BUILD_NUMBER}"
             }
         }
     }
