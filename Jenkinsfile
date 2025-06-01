@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         APIFOOTBALL_API_KEY = credentials('APIFOOTBALL_API_KEY')
-        IMAGE_NAME = "footballapi:${env.BUILD_NUMBER}"
+        IMAGE_NAME = "footballapi_%BUILD_NUMBER%"
         CONTAINER_NAME = "footballapi"
     }
 
@@ -15,7 +15,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 deleteDir()
-                sh 'git clone -b feature/foot-ball-standings-api https://github.com/girishKM/football-standings.git .'
+                bat 'git clone -b feature/foot-ball-standings-api https://github.com/girishKM/football-standings.git .'
             }
         }
         stage('Build') {
