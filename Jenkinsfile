@@ -19,7 +19,7 @@ pipeline {
         // }
         stage('Clone Repo') {
             steps {
-                git branch: 'feature/foot-ball-standings-api', url: 'git clone -b feature/foot-ball-standings-api https://github.com/girishKM/football-standings.git .'
+                git branch: 'feature/foot-ball-standings-api', url: 'git clone https://github.com/girishKM/football-standings.git .'
                 dir('repo') {
                     git 'https://github.com/girishKM/football-standings.git'
                 }
