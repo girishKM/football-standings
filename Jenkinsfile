@@ -12,11 +12,20 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        // stage('Checkout') {
+        //     steps {
+        //         sh 'git clone -b feature/foot-ball-standings-api https://github.com/girishKM/football-standings.git .'
+        //     }
+        // }
+        stage('Clone Repo') {
             steps {
-                sh 'git clone -b feature/foot-ball-standings-api https://github.com/girishKM/football-standings.git .'
+                git branch: 'feature/foot-ball-standings-api', url: 'git clone -b feature/foot-ball-standings-api https://github.com/girishKM/football-standings.git .'
+                dir('repo') {
+                    git 'https://github.com/girishKM/football-standings.git'
+                }
             }
         }
+
         stage('Build') {
             steps {
                 sh 'docker run --rm -v $PWD:/app -w /app maven:3.9.6-eclipse-temurin-17 mvn clean package -DskipTests'
