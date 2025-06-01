@@ -12,19 +12,13 @@ pipeline {
     }
 
     stages {
-        // stage('Checkout') {
-        //     steps {
-        //         sh 'git clone -b feature/foot-ball-standings-api https://github.com/girishKM/football-standings.git .'
-        //     }
-        // }
-        stage('Clone Repo') {
+        stage('Checkout') {
             steps {
-                git branch: 'feature/foot-ball-standings-api', url: 'git clone https://github.com/girishKM/football-standings.git .'
-                dir('repo') {
-                    git 'https://github.com/girishKM/football-standings.git'
-                }
+                deleteDir()
+                sh 'git clone -b feature/foot-ball-standings-api https://github.com/girishKM/football-standings.git .'
             }
         }
+       
 
         stage('Build') {
             steps {
