@@ -7,8 +7,6 @@ pipeline {
 
     environment {
         APIFOOTBALL_API_KEY = credentials('APIFOOTBALL_API_KEY')
-        IMAGE_NAME = "footballapi_%BUILD_NUMBER%"
-        CONTAINER_NAME = "footballapi"
     }
 
     stages {
@@ -30,13 +28,13 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
-                bat "docker build -t %IMAGE_NAME% ."
+                bat "docker build -t footballapi_${env.BUILD_NUMBER} ."
             }
         }
         stage('Docker Deploy') {
             steps {
-                bat "docker rm -f %CONTAINER_NAME% || exit 0"
-                bat "docker run -d --name %CONTAINER_NAME% -e APIFOOTBALL_API_KEY=%APIFOOTBALL_API_KEY% -p 8080:8080 %IMAGE_NAME%"
+                bat "docker rm -f footballapi || exit 0"
+                bat "docker run -d --name footballapi -e APIFOOTBALL_API_KEY=${env.APIFOOTBALL_API_KEY} -p 8080:8080 footballapi_${env.BUILD_NUMBER}"
             }
         }
     }
