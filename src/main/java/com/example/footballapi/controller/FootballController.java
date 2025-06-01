@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 
 @RestController
@@ -32,6 +35,13 @@ public class FootballController {
         this.footballApiService = footballApiService;
     }
 
+    @Operation(summary = "Get team standing", description = "Returns the standing for a specific team in a league.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successful retrieval"),
+        @ApiResponse(responseCode = "400", description = "Invalid input parameters"),
+        @ApiResponse(responseCode = "404", description = "Country, league, or team not found"),
+        @ApiResponse(responseCode = "500", description = "Internal server error or external API failure")
+    })
     @GetMapping("/standings/team")
     public ResponseEntity<TeamStandingDTO> getTeamStanding(
             @RequestParam String countryName,
@@ -49,11 +59,18 @@ public class FootballController {
         return ResponseEntity.ok(standing);
     }
 
+    @Operation(summary = "Get supported countries", description = "Returns the list of countries available for your API key.")
+    @ApiResponse(responseCode = "200", description = "Successful retrieval")
     @GetMapping("/countries")
     public ResponseEntity<List<CountryDTO>> getCountries() {
         return ResponseEntity.ok(footballApiService.getCountries());
     }
 
+    @Operation(summary = "Get leagues by country", description = "Returns all leagues for a given country ID.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successful retrieval"),
+        @ApiResponse(responseCode = "404", description = "Country not found")
+    })
     @GetMapping("/leagues")
     public ResponseEntity<List<LeagueDTO>> getLeagues(@RequestParam String countryId) {
         return ResponseEntity.ok(footballApiService.getLeaguesByCountryId(countryId));
