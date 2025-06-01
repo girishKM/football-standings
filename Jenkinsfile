@@ -20,25 +20,23 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                bat 'mvn clean package -DskipTests'
             }
         }
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
         stage('Docker Build') {
             steps {
-                sh "docker build -t ${IMAGE_NAME} ."
+                bat "docker build -t %IMAGE_NAME% ."
             }
         }
         stage('Docker Deploy') {
             steps {
-                // Remove any existing container (ignore errors if not present)
-                sh "docker rm -f ${CONTAINER_NAME} || exit 0"
-                // Run the new container
-                sh "docker run -d --name ${CONTAINER_NAME} -e APIFOOTBALL_API_KEY=${APIFOOTBALL_API_KEY} -p 8080:8080 ${IMAGE_NAME}"
+                bat "docker rm -f %CONTAINER_NAME% || exit 0"
+                bat "docker run -d --name %CONTAINER_NAME% -e APIFOOTBALL_API_KEY=%APIFOOTBALL_API_KEY% -p 8080:8080 %IMAGE_NAME%"
             }
         }
     }
