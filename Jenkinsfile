@@ -10,11 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'github-creds', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
-                        sh 'git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/your-username/your-repo.git .'
-                    }
-                }
+                sh 'git clone -b feature/foot-ball-standings-api https://github.com/your-username/your-repo.git .'
             }
         }
         stage('Build') {
