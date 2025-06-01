@@ -18,11 +18,9 @@ pipeline {
                 sh 'git clone -b feature/foot-ball-standings-api https://github.com/girishKM/football-standings.git .'
             }
         }
-       
-
         stage('Build') {
             steps {
-                sh 'docker run --rm -v $PWD:/app -w /app maven:3.9.6-eclipse-temurin-17 mvn clean package -DskipTests'
+                sh 'mvn clean package -DskipTests'
             }
         }
         stage('Test') {
