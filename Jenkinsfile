@@ -35,7 +35,9 @@ pipeline {
         }
         stage('Docker Deploy') {
             steps {
-                sh "docker rm -f ${CONTAINER_NAME} || true"
+                // Remove any existing container (ignore errors if not present)
+                sh "docker rm -f ${CONTAINER_NAME} || exit 0"
+                // Run the new container
                 sh "docker run -d --name ${CONTAINER_NAME} -e APIFOOTBALL_API_KEY=${APIFOOTBALL_API_KEY} -p 8080:8080 ${IMAGE_NAME}"
             }
         }
