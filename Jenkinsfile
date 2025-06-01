@@ -13,7 +13,11 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'github-creds', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                        sh 'git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/your-username/your-repo.git .'
+                    }
+                }
             }
         }
         stage('Build') {
