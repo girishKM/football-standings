@@ -33,8 +33,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    // Use the host Docker daemon (Jenkins must be started with -v /var/run/docker.sock:/var/run/docker.sock)
-                    dockerImage = docker.build("${IMAGE_NAME}")
+                    sh "docker build -t ${IMAGE_NAME} ."
                 }
             }
         }
