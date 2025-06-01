@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                sh 'git clone -b feature/foot-ball-standings-api https://github.com/your-username/your-repo.git .'
+                sh 'git clone -b feature/foot-ball-standings-api https://github.com/girishKM/football-standings.git .'
             }
         }
         stage('Build') {
