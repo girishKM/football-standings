@@ -1,8 +1,5 @@
 pipeline {
-    agent {
-        // Use the Docker daemon of the host Jenkins is running on
-        docker { image 'maven:3.9.6-eclipse-temurin-17' }
-    }
+    agent any
 
     environment {
         APIFOOTBALL_API_KEY = credentials('APIFOOTBALL_API_KEY')
@@ -32,19 +29,13 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
-                script {
-                    sh "docker build -t ${IMAGE_NAME} ."
-                }
+                sh "docker build -t ${IMAGE_NAME} ."
             }
         }
         stage('Docker Deploy') {
             steps {
-                script {
-                    // Stop and remove any existing container
-                    sh "docker rm -f ${CONTAINER_NAME} || true"
-                    // Run the new container
-                    sh "docker run -d --name ${CONTAINER_NAME} -e APIFOOTBALL_API_KEY=${APIFOOTBALL_API_KEY} -p 8080:8080 ${IMAGE_NAME}"
-                }
+                sh "docker rm -f ${CONTAINER_NAME} || true"
+                sh "docker run -d --name ${CONTAINER_NAME} -e APIFOOTBALL_API_KEY=${APIFOOTBALL_API_KEY} -p 8080:8080 ${IMAGE_NAME}"
             }
         }
     }
