@@ -54,7 +54,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, ex.getStatusCode());
     }
 
-    @ExceptionHandler(ResourceAccessException.class) // Handles I/O errors like connection timeouts
+    @ExceptionHandler(ResourceAccessException.class)
     public ResponseEntity<Object> handleResourceAccessException(ResourceAccessException ex) {
         logger.error("Resource Access Exception (e.g., connection timeout): {}", ex.getMessage(), ex);
         Map<String, Object> body = new HashMap<>();

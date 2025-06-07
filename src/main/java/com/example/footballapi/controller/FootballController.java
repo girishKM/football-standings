@@ -7,7 +7,6 @@ import com.example.footballapi.dto.TeamStandingDTO;
 import com.example.footballapi.service.FootballApiService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,14 +22,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("/api/football")
-// Configure CORS as needed. For development, allowing localhost (Angular default port 4200)
 @CrossOrigin(origins = {"http://localhost:4200", "http://127.0.0.1:4200"})
 public class FootballController {
 
     private static final Logger logger = LoggerFactory.getLogger(FootballController.class);
     private final FootballApiService footballApiService;
 
-    @Autowired
     public FootballController(FootballApiService footballApiService) {
         this.footballApiService = footballApiService;
     }

@@ -117,10 +117,35 @@ Below is a typical flow for the "Get Team Standing" endpoint.
 
 ---
 
-## License
+## How to Build and Run
 
-This project is licensed under the MIT License.
+### Prerequisites
+- Java 17+
+- Maven
+- Docker
 
----
+### Build and Run with Docker
 
-**Happy Coding!**
+1. Build the JAR:
+   ```sh
+   mvn clean package
+   ```
+2. Build the Docker image:
+   ```sh
+   docker build -t footballapi:latest .
+   ```
+3. Run the Docker container (replace `YOUR_API_KEY`):
+   ```sh
+   docker run -d -e APIFOOTBALL_API_KEY=YOUR_API_KEY -p 8080:8080 footballapi:latest
+   ```
+4. Access the API at [http://localhost:8080](http://localhost:8080)
+
+### Jenkins Pipeline
+
+- The `Jenkinsfile` is included for CI/CD demonstration.
+- Reviewer can view pipeline steps or use it in their Jenkins setup.
+
+### Configuration
+
+- Edit `src/main/resources/application.properties` as needed.
+- Or override `apifootball.api.key` with the `APIFOOTBALL_API_KEY` environment variable.

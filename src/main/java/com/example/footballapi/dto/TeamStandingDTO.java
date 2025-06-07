@@ -1,6 +1,5 @@
 package com.example.footballapi.dto;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -12,8 +11,7 @@ import lombok.NoArgsConstructor;
 public class TeamStandingDTO {
 
     @JsonProperty("country_name")
-    private String countryName; // This is often part of the standings record
-
+    private String countryName;
     @JsonProperty("league_id")
     private String leagueId;
 
@@ -50,8 +48,10 @@ public class TeamStandingDTO {
     @JsonProperty("overall_league_PTS")
     private String overallLeaguePTS;
 
-    // Note: APIFootball's get_standings might return country_id at the same level as team_name.
-    // If you need country_id directly associated with each team standing and it's not in the
+    // Note: APIFootball's get_standings might return country_id at the same level
+    // as team_name.
+    // If you need country_id directly associated with each team standing and it's
+    // not in the
     // standings response, you might infer it from the league details.
     // For now, we assume country_name is in the standing record.
 }

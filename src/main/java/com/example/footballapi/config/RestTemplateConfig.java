@@ -18,7 +18,7 @@ public class RestTemplateConfig {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setSupportedMediaTypes(Arrays.asList(
                 MediaType.APPLICATION_JSON,
-                MediaType.TEXT_HTML // Accept text/html as JSON
+                MediaType.TEXT_HTML 
         ));
 
         restTemplate.getMessageConverters().add(0, converter);
