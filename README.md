@@ -39,6 +39,48 @@ GET /api/football/standings/team?countryName=England&leagueName=Premier%20League
 
 ---
 
+## API Documentation
+
+- **Swagger UI:**  
+  Visit [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) for interactive API docs.
+
+## Error Codes
+
+| Code | Meaning                                  |
+|------|------------------------------------------|
+| 200  | Success                                  |
+| 400  | Invalid input parameters                 |
+| 404  | Country, league, or team not found       |
+| 500  | Internal server error or API failure     |
+
+---
+![football drawio](https://github.com/user-attachments/assets/376a0ab7-3437-4cb4-aa3c-7bc1f48ef3d8)
+
+## Sequence Diagram
+
+Below is a typical flow for the "Get Team Standing" endpoint.  
+**You can recreate or edit this diagram in [draw.io](https://www.draw.io):**
+
+
+## Design Patterns Used
+
+- **Service Layer Pattern:**  
+  Business logic is encapsulated in service classes (`FootballApiService`), separate from controllers.
+
+- **DTO (Data Transfer Object) Pattern:**  
+  All API responses use DTOs (`CountryDTO`, `LeagueDTO`, `TeamStandingDTO`) to decouple internal models from external representations.
+
+- **Dependency Injection:**  
+  Spring's `@Autowired` and constructor injection are used throughout for loose coupling.
+
+- **Caching Pattern:**  
+  Caffeine cache is used to optimize repeated data fetches and support offline access.
+
+- **Exception Handling Pattern:**  
+  Custom exceptions and a global exception handler provide clear error responses.
+
+---
+
 ## Setup
 
 1. **Clone the repository:**
@@ -75,23 +117,9 @@ GET /api/football/standings/team?countryName=England&leagueName=Premier%20League
 
 ---
 
-## Development
-
-- Java 17+ recommended
-- Spring Boot 3.x
-- Caffeine cache
-
----
-
 ## License
 
 This project is licensed under the MIT License.
-
----
-
-## Credits
-
-- [APIFootball](https://apifootball.com/documentation/) for football data API
 
 ---
 
