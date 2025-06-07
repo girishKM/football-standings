@@ -1,6 +1,5 @@
 package com.example.footballapi.config;
 
-
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
@@ -24,10 +23,6 @@ public class CacheConfig {
 
     public static final String LEAGUES_CACHE = "leagues";
     public static final String STANDINGS_BY_LEAGUE_CACHE = "standingsByLeague";
-    // We might not cache individual team standings directly if we filter them from full league standings,
-    // but if we decide to, we can define a cache for it too.
-    // public static final String TEAM_STANDING_CACHE = "teamStanding";
-
 
     @Bean
     @Primary // Make this the default CacheManager
@@ -36,39 +31,17 @@ public class CacheConfig {
 
         // Configure specific caches with different TTLs
         cacheManager.registerCustomCache(LEAGUES_CACHE,
-            Caffeine.newBuilder()
-                .expireAfterWrite(leaguesCacheTtlSeconds, TimeUnit.SECONDS)
-                .maximumSize(100) // Max 100 entries for leagues cache
-                .build());
+                Caffeine.newBuilder()
+                        .expireAfterWrite(leaguesCacheTtlSeconds, TimeUnit.SECONDS)
+                        .maximumSize(100) // Max 100 entries for leagues cache
+                        .build());
 
         cacheManager.registerCustomCache(STANDINGS_BY_LEAGUE_CACHE,
-            Caffeine.newBuilder()
-                .expireAfterWrite(standingsCacheTtlSeconds, TimeUnit.SECONDS)
-                .maximumSize(200) // Max 200 entries for standings cache (e.g., different leagues)
-                .build());
-
-        // If you want a default Caffeine spec for caches not explicitly configured:
-        // cacheManager.setCaffeine(Caffeine.newBuilder()
-        //         .initialCapacity(100)
-        //         .maximumSize(500)
-        //         .expireAfterWrite(10, TimeUnit.MINUTES));
-        // cacheManager.setCacheNames(Arrays.asList(LEAGUES_CACHE, STANDINGS_BY_LEAGUE_CACHE)); // Or let Spring Boot auto-configure based on application.properties
+                Caffeine.newBuilder()
+                        .expireAfterWrite(standingsCacheTtlSeconds, TimeUnit.SECONDS)
+                        .maximumSize(200) // Max 200 entries for standings cache (e.g., different leagues)
+                        .build());
 
         return cacheManager;
     }
-
-    // Alternative simple CacheManager using cache names from application.properties
-    // and default Caffeine settings or a global spec.
-    /*
-    @Bean
-    public CacheManager cacheManager() {
-        CaffeineCacheManager cacheManager = new CaffeineCacheManager();
-        // If spring.cache.cache-names is set in properties, those caches are auto-created.
-        // To apply a uniform spec:
-        // cacheManager.setCaffeine(Caffeine.newBuilder()
-        //         .expireAfterWrite(Long.parseLong(defaultCacheTtlSeconds), TimeUnit.SECONDS)
-        //         .maximumSize(500));
-        return cacheManager;
-    }
-    */
 }

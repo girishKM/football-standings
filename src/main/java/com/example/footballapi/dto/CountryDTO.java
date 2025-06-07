@@ -9,7 +9,6 @@ public class CountryDTO {
     @JsonProperty("country_name")
     private String countryName;
 
-    // Getters and setters
     public String getCountryId() { return countryId; }
     public void setCountryId(String countryId) { this.countryId = countryId; }
 

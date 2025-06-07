@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true) // Important to ignore fields not mapped
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LeagueDTO {
 
     @JsonProperty("league_id")
@@ -22,6 +22,4 @@ public class LeagueDTO {
     @JsonProperty("country_name")
     private String countryName;
 
-    // Add other relevant fields from the API response if needed
-    // e.g., league_season, league_logo, country_logo
 }

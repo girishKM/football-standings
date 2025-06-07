@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ApiErrorResponseDTO {
-    // Based on common APIFootball error structure like {"error": 404, "message": "No_league_found"}
     private int error;
     private String message;
 }
