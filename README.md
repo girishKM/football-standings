@@ -149,3 +149,12 @@ Below is a typical flow for the "Get Team Standing" endpoint.
 
 - Edit `src/main/resources/application.properties` as needed.
 - Or override `apifootball.api.key` with the `APIFOOTBALL_API_KEY` environment variable.
+
+## Jenkins Pipeline as Code
+
+- The `Jenkinsfile` in the project root defines the CI/CD pipeline.
+- The `jenkins/config.xml` file contains the exported Jenkins job configuration.
+- To import the job:
+  1. Go to Jenkins dashboard.
+  2. Click "New Item" → "Advanced" → "Use existing config.xml".
+  3. Upload the provided `config.xml`.
